@@ -1,0 +1,425 @@
+// Variables
+$primary-color: #dc2626;
+$secondary-color: #f59e0b;
+$text-color: #333;
+$background-color: #ffffff;
+$white: #fff;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+// Global styles
+body {
+  font-family: Arial, sans-serif;
+  color: $text-color;
+  line-height: 1.6;
+  background-color: $background-color;
+}
+
+.container {
+  @include container;
+}
+
+.button {
+  background-color: $primary-color;
+  color: $white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+
+  &--full {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &--small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+.section-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+// Header
+.header {
+  background-color:  #a30f0f;
+  color: $white;
+  padding: 0.25rem 0; // Reduced padding to make header shorter
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logos {
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    width: 60px; // Reduced logo size
+    height: auto;
+    margin-right: 1rem;
+  }
+
+  &__nav {
+    ul {
+      display: flex;
+      list-style-type: none;
+      align-items: center;
+      
+      li {
+        margin-left: 1rem;
+      }
+
+      button {
+        background: none;
+        border: none;
+        color: $white;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.cart-button {
+  position: relative;
+  font-size: 1.25rem; // Slightly reduced size
+  display: flex;
+  align-items: center;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: $secondary-color;
+  color: $white;
+  border-radius: 50%;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.cart-total {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+}
+
+// Hero section
+.hero {
+  padding: 9rem 0; // Increased padding by 100px
+  background-color: $white;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__text {
+    margin-bottom: 2rem;
+
+    @media (min-width: 768px) {
+      width: 50%;
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+
+    @media (min-width: 768px) {
+      font-size: 4rem;
+    }
+  }
+
+  &__title-highlight {
+    background: linear-gradient(to right, $primary-color, $secondary-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    animation: highlight 3s linear infinite;
+  }
+
+  &__subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &__model {
+    width: 100%;
+
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+  }
+
+  &__model-placeholder {
+    background-color: #e5e7eb;
+    height: 500px; // Increased height
+    border-radius: 0.5rem;
+    @include flex-center;
+  }
+}
+
+// Results section
+.results {
+  background-color: $white;
+  padding: 10rem 0; // Increased padding by 100px
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+.race-card {
+  background-color: $white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  transition: all 0.3s ease;
+
+  &--expanded {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__result {
+    margin-bottom: 1rem;
+  }
+
+  &__details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+
+    &--expanded {
+      max-height: 1000px;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+    display: none;
+
+    .race-card--expanded & {
+      display: block;
+    }
+  }
+}
+
+// Team section
+.team {
+  background-color: #e5e7eb;
+  padding: 10rem 0; // Increased padding by 100px
+  
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  &__logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 1rem;
+
+    @media (min-width: 768px) {
+      margin-bottom: 0;
+      margin-right: 2rem;
+    }
+  }
+
+  &__info {
+    text-align: center;
+
+    @media (min-width: 768px) {
+      text-align: left;
+    }
+  }
+
+  &__sponsor {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  &__description {
+    max-width: 600px;
+  }
+
+  &__image {
+    width: 1000px;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 110px;
+  }
+}
+
+// Merchandise section
+.merchandise {
+  background-color: $white;
+  padding: 10rem 0; // Increased padding by 100px
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+}
+
+.merchandise-item {
+  background-color: $white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+
+  &__image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  &__name {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__price {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+}
+
+// Footer
+.footer {
+  background-color: $primary-color;
+  color: $white;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+// Cart Modal
+.cart-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  &__content {
+    background-color: $white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
+.cart-items {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+
+  &__image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+
+  &__details {
+    flex-grow: 1;
+
+    h3 {
+      font-size: 1rem;
+      margin: 0 0 0.25rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin: 0;
+    }
+  }
+}
+
+.cart-total {
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: right;
+}
+
+// Animations
+@keyframes highlight {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
