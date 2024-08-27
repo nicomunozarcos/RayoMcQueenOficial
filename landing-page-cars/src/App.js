@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import './App.scss';
+import ThreeDModel from './ThreeDModel';
 
 function App() {
   const [expandedRace, setExpandedRace] = useState(null);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [currentModel, setCurrentModel] = useState('/lightning_mcqueen.glb');
+  const [currentScale, setCurrentScale] = useState(1);
+
+  const handleModelChange = (modelPath, modelScale) => {
+    setCurrentModel(modelPath);
+    setCurrentScale(modelScale);
+  };
 
   const races = [
     { 
@@ -13,21 +21,21 @@ function App() {
       name: "Copa Pistón", 
       result: "1er Lugar", 
       details: "Lightning McQueen dominó la carrera con un tiempo récord en la vuelta. Sus paradas estratégicas en boxes y su velocidad inigualable en la recta final aseguraron su victoria, dejando a la competencia asombrada.",
-      image: "/piston-cup.jpg"
+      image: "/a3f46de8cc5cc4f9225cb41b5a15df5e.jpg"
     },
     { 
       id: 2,
       name: "Gran Premio de Radiador Springs", 
       result: "1er Lugar", 
       details: "La ventaja de correr en casa llevó a una victoria decisiva para Lightning. Su conocimiento íntimo de cada curva y el apoyo del público local lo impulsaron a tomar la delantera desde el principio hasta el final.",
-      image: "/radiator-springs.jpg"
+      image: "/RS_GP.jpg"
     },
     { 
       id: 3,
       name: "Gran Premio Mundial", 
       result: "2do Lugar", 
       details: "Un final de infarto en Tokio contra Francesco Bernoulli. La impresionante actuación de Lightning durante toda la carrera fue superada por poco en los últimos momentos, resultando en un final de foto.",
-      image: "/world-grand-prix.jpg"
+      image: "/McQueenandFrancescoPortoCorsa.jpg"
     },
     { 
       id: 4,
@@ -113,21 +121,32 @@ function App() {
       </header>
 
       <section id="hero" className="hero">
-        <div className="container hero__content">
-          <div className="hero__text">
-            <h1 className="hero__title">
-              <span className="hero__title-highlight">Rayo McQueen.</span>
-            </h1>
-            <p className="hero__subtitle">Velocidad. Soy rápido.</p>
-            <button className="button">Ver modelo 3D.</button>
-          </div>
-          <div className="hero__model">
-            <div className="hero__model-placeholder">
-              <p>3D Model Placeholder</p>
-            </div>
-          </div>
+      <div className="container hero__content">
+        <div className="hero__text">
+          <h1 className="hero__title">
+            <span className="hero__title-highlight">Rayo McQueen.</span>
+          </h1>
+          <p className="hero__subtitle">Velocidad. Soy rápido.</p>
         </div>
-      </section>
+        <div className="hero__model">
+          <Suspense fallback={<div>Loading model...</div>}>
+            <ThreeDModel modelPath={currentModel} modelScale={currentScale}/>
+          </Suspense>
+        </div>
+      </div>
+      {/* Botones para cambiar entre modelos */}
+      <div className="hero__buttons">
+        <button className="button" onClick={() => handleModelChange('/lightning_mcqueen.glb', 1)}>
+          Rayo Clásico
+        </button>
+        <button className="button" onClick={() => handleModelChange('/daredevil_lightning.glb', 1.4)}>
+          Rayo Capitán América
+        </button>
+        <button className="button" onClick={() => handleModelChange('/dragon_lightning.glb', 1.4)}>
+          Rayo Dragón Chino
+        </button>
+      </div>
+    </section>
 
       <section id="results" className="results">
         <div className="container">

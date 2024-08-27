@@ -14,7 +14,7 @@ $white: #fff;
 
 @mixin container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -71,6 +71,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 
   &__content {
     display: flex;
@@ -134,8 +135,13 @@ body {
 
 // Hero section
 .hero {
-  padding: 9rem 0; // Increased padding by 100px
-  background-color: $white;
+  padding: 8rem 0; // Reduce el padding superior para mover todo hacia arriba
+  background-image: url('../public/517331c69354be921308832b21ba4a11.jpg'); // Ruta de la imagen
+  background-size: cover;  // Ajusta la imagen para que cubra toda la sección
+  background-position: center; // Centra la imagen
+  background-repeat: no-repeat; // Evita que la imagen se repita
+  height: 60vh; // Ajusta la altura al 100% de la ventana
+  width: 100%; // Asegura que el ancho cubra todo el contenedor
 
   &__content {
     display: flex;
@@ -145,25 +151,37 @@ body {
     @media (min-width: 768px) {
       flex-direction: row;
       justify-content: space-between;
+      padding: 1rem 0; // Ajusta el padding para alinear el contenido correctamente
     }
   }
-
+ 
   &__text {
-    margin-bottom: 2rem;
-
+    margin-bottom: 1rem; // Reduce el margen inferior
+    margin-left: 5rem;
+    
     @media (min-width: 768px) {
-      width: 50%;
-      margin-bottom: 0;
+      width: 70%;
+      margin-bottom: 1rem; // Ajusta el margen para pantallas grandes
     }
   }
 
   &__title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 5rem;
+    font-weight: 700;
+    margin-bottom: 0rem; // Ajusta el margen inferior
+    margin-top: -10rem;
+    margin-left: 2rem;
 
     @media (min-width: 768px) {
       font-size: 4rem;
     }
+  }
+
+  &__subtitle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    margin-left: 4rem;
+    font-weight: 700;
   }
 
   &__title-highlight {
@@ -171,29 +189,52 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200% auto;
-    animation: highlight 3s linear infinite;
-  }
-
-  &__subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    animation: highlight 4s linear infinite;
   }
 
   &__model {
     width: 100%;
+    height: 50vh; /* Ajusta la altura para acomodar el modelo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: transparent;
 
     @media (min-width: 768px) {
-      width: 50%;
+      width: 100%; /* Ajusta el ancho para pantallas grandes */
     }
   }
 
   &__model-placeholder {
     background-color: #e5e7eb;
-    height: 500px; // Increased height
+    height: 500px; // Asegura que haya suficiente altura para el modelo
     border-radius: 0.5rem;
     @include flex-center;
   }
 }
+
+.hero__buttons {
+  display: flex;
+  margin-top: 20px;
+  justify-content: end;
+  margin-right: 200px;
+
+  .button {
+    margin: 0 50px;
+    padding: 10px 20px;
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
 
 // Results section
 .results {
